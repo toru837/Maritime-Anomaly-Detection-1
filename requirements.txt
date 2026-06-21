@@ -1,7 +1,6 @@
-ultralytics
-opencv-python
-numpy
-pandas
-matplotlib
-torch
-torchvision
+- Python
+- YOLOv12 (Ultralytics)
+- OpenCV
+- NumPy
+- Matplotlib
+- Google Colab
