@@ -1,187 +1,144 @@
-# Vessel Detection and Tracking System
+# 🚢 Maritime Anomaly Detection using YOLOv12
 
-## Overview
-
-This project focuses on real-time vessel detection and tracking for maritime surveillance using state-of-the-art Computer Vision and Deep Learning techniques. The system detects marine objects such as ships, boats, and other watercraft from video streams and tracks them across frames using unique IDs.
-
-The project aims to support maritime security, automated monitoring, search-and-rescue operations, and reduce dependence on manual surveillance systems.
+An AI-powered maritime surveillance system that detects ships, boats, and other maritime objects while identifying windsurfers and SUP boards as anomalous objects. The project uses a custom-trained YOLOv12 model to automate maritime monitoring from images and videos, helping improve safety, security, and situational awareness.
 
 ---
 
-## Project Status
+## 📌 Overview
 
-🚧 **Work in Progress**
-
-### Completed
-
-* Dataset Collection and Analysis
-* Data Preprocessing
-* YOLO Dataset Preparation
-* Custom YOLOv12 Model Training
-* Vessel Detection Pipeline
-* Initial ByteTrack Integration
-* Model Evaluation
-
-### Upcoming Features
-
-* Vessel Re-Identification
-* Anomaly Detection
-* Trajectory Analysis
-* Real-Time Dashboard
-* Performance Optimization
-* Deployment Pipeline
+Maritime surveillance often requires continuous human monitoring, which is time-consuming and prone to errors. This project automates the detection of maritime objects and highlights potentially unusual objects separately, reducing manual effort and enabling faster decision-making.
 
 ---
 
-## Features
+## 🎯 Problem Statement
 
-* Real-time vessel detection using YOLOv12
-* Multi-object tracking using ByteTrack
-* Unique ID assignment for each detected vessel
-* Bounding box visualization
-* Coordinate extraction for detected vessels
-* Maritime surveillance support
-* Scalable architecture for future anomaly detection
+The system addresses the following challenges:
 
----
-
-## Dataset
-
-The model was trained on maritime datasets containing multiple classes of marine objects including:
-
-* Ships
-* Boats
-* Watercraft
-* Marine Vehicles
-
-The datasets were cleaned, merged, and converted into YOLO format for training.
-
-> Note: Due to dataset size and licensing constraints, the complete dataset is not included in this repository.
+- Automated detection of ships and boats
+- Identification of small or unusual maritime objects
+- Reduced dependence on manual video monitoring
+- Improved maritime safety and surveillance
+- Faster analysis of maritime imagery and videos
 
 ---
 
-## Technologies Used
+## ⚙️ Features
 
-* Python
-* YOLOv12
-* OpenCV
-* ByteTrack
-* NumPy
-* Pandas
-* Google Colab
-* Git & GitHub
+- 🚢 Maritime vessel detection
+- ⚠️ Anomaly detection for Wind/SUP Boards
+- 🎥 Video processing and inference
+- 🖼️ Image inference and visualization
+- 📊 Custom YOLOv12 training pipeline
+- 🔴 Red bounding boxes for anomalies
+- 🟢 Green bounding boxes for normal objects
 
 ---
 
-## System Architecture
+## 🏗️ System Pipeline
 
 ```text
-Input Video
-     │
-     ▼
-YOLOv12 Detection
-     │
-     ▼
-Bounding Boxes
-     │
-     ▼
-ByteTrack Tracking
-     │
-     ▼
-Object ID Assignment
-     │
-     ▼
-Trajectory Generation
-     │
-     ▼
-Maritime Surveillance Output
+Input Image/Video
+        ↓
+YOLOv12 Object Detection
+        ↓
+Object Classification
+        ↓
+Anomaly Check
+(Wind/SUP Board?)
+      /    \
+    Yes     No
+     ↓       ↓
+ Red Box  Green Box
+        ↓
+ Annotated Output
 ```
-
-## Model Training
-
-* Prepared custom maritime datasets in YOLO format.
-* Applied preprocessing and annotation verification.
-* Trained YOLOv12 model on custom vessel datasets.
-* Evaluated model performance using standard object detection metrics.
-* Optimized training parameters for improved detection performance.
 
 ---
 
-## Results
+## 🧠 Model Details
 
-The model was evaluated using standard object detection metrics:
+| Parameter | Value |
+|------------|--------|
+| Model | YOLOv12s |
+| Epochs | 13 |
+| Image Size | 640 × 640 |
+| Batch Size | 16 |
+| Framework | Ultralytics YOLO |
 
-* Precision
-* Recall
-* mAP (Mean Average Precision)
-* F1 Score
-
-Training and evaluation results demonstrated strong vessel detection performance under varying environmental conditions.
-
----
-
-## Repository Structure
-
-```text
-Vessel-Detection-and-Tracking/
-│
-├── README.md
-├── vessel_detection.ipynb
-├── requirements.txt
-│
-├── images/
-│   ├── sample_predictions/
-│   └── tracking_outputs/
-│
-└── results/
-    ├── confusion_matrix.png
-    ├── PR_curve.png
-    └── results.png
-```
-
-## Installation
-
-```bash
-git clone <repository-link>
-cd Vessel-Detection-and-Tracking
-pip install -r requirements.txt
-```
-
-## Usage
-
-Open the notebook and run:
-
-```bash
-vessel_detection.ipynb
-```
-
-using Google Colab or Jupyter Notebook.
+The model is trained on a custom maritime dataset containing ships, boats, vessels, and wind/SUP boards.
 
 ---
 
-## Future Scope
+## 🚀 Usage
 
-* Vessel Re-Identification
-* Maritime Anomaly Detection
-* Illegal Activity Detection
-* Collision Risk Analysis
-* Smart Port Monitoring
-* Coast Guard Surveillance Support
-* Real-Time Deployment
+### Training
+
+```python
+from ultralytics import YOLO
+
+model = YOLO("yolo12s.pt")
+
+model.train(
+    data="data.yaml",
+    epochs=13,
+    imgsz=640,
+    batch=16
+)
+```
+
+### Image Inference
+
+```python
+from ultralytics import YOLO
+
+model = YOLO("best.pt")
+results = model("image.jpg")
+results[0].show()
+```
+
+### Video Inference
+
+```python
+from ultralytics import YOLO
+
+model = YOLO("best.pt")
+
+model.predict(
+    source="video.mp4",
+    save=True
+)
+```
 
 ---
 
-## Author
+## 🛠️ Technologies Used
 
-**Uttam Rathore**
+- Python
+- YOLOv12 (Ultralytics)
+- OpenCV
+- NumPy
+- Matplotlib
+- Google Colab
 
-B.Tech Electronics & Communication Engineering
+---
+
+## 🔮 Future Improvements
+
+- Multi-object tracking using ByteTrack
+- Vessel Re-Identification (ReID)
+- DINOv2-based feature embeddings
+- Motion and stillness analysis
+- Advanced anomaly detection
+- Search and rescue intelligence systems
+
+---
+
+## 👨‍💻 Author
+
+**Uttam Rathore**  
+B.Tech, Electronics & Communication Engineering  
 MNIT Jaipur
 
-Interested in Machine Learning, Computer Vision, Deep Learning, and AI-powered surveillance systems.
-
 ---
 
-## License
-
-This project is released under the MIT License.
+⭐ If you find this project useful, consider giving it a star on GitHub.
